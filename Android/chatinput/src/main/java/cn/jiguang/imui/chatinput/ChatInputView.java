@@ -282,7 +282,7 @@ public class ChatInputView extends LinearLayout
         mWindow = ((Activity) context).getWindow();
         DisplayMetrics dm = getResources().getDisplayMetrics();
         mWidth = dm.widthPixels;
-        mHeight = dm.heightPixels;
+//        mHeight = dm.heightPixels;
         mRecordControllerView.setWidth(mWidth);
         mRecordControllerView.setOnControllerListener(this);
         getViewTreeObserver().addOnPreDrawListener(this);
@@ -1347,8 +1347,10 @@ public class ChatInputView extends LinearLayout
     public void onWindowFocusChanged(boolean hasWindowFocus) {
         super.onWindowFocusChanged(hasWindowFocus);
         if (hasWindowFocus && mHeight <= 0) {
-            this.getRootView().getGlobalVisibleRect(mRect);
-            mHeight = mRect.bottom;
+            View rootView = getRootView().findViewById(Window.ID_ANDROID_CONTENT);
+            if (rootView != null) {
+                mHeight = rootView.getHeight();
+            }
             Log.d(TAG, "Window focus changed, height: " + mHeight);
         }
     }
