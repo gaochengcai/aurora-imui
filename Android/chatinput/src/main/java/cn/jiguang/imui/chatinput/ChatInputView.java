@@ -255,6 +255,7 @@ public class ChatInputView extends LinearLayout
         mEmojiRl = (EmojiView) findViewById(R.id.aurora_rl_emoji_container);
 
         mMenuContainer.setVisibility(GONE);
+        mFullScreenBtn.setVisibility(GONE);
 
         mChatInput.addTextChangedListener(this);
         mChatInput.setOnBackKeyClickListener(new EmoticonsEditText.OnBackKeyClickListener() {
@@ -516,6 +517,7 @@ public class ChatInputView extends LinearLayout
                             Toast.makeText(getContext(), getContext().getString(R.string.sdcard_not_exist_toast),
                                     Toast.LENGTH_SHORT).show();
                         }
+                        fullScreen();
                     }
                 } else if (view.getId() == R.id.aurora_ll_menuitem_emoji_container) {
                     if (mListener != null && mListener.switchToEmojiMode()) {
@@ -602,14 +604,14 @@ public class ChatInputView extends LinearLayout
                 mCaptureBtn.setBackgroundResource(R.drawable.aurora_preview_record_video_start);
                 mRecordVideoBtn.setBackgroundResource(R.drawable.aurora_preview_camera);
                 fullScreen();
-                mCloseBtn.setVisibility(VISIBLE);
+//                mCloseBtn.setVisibility(VISIBLE);
             } else {
                 mIsRecordVideoMode = false;
                 mRecordVideoBtn.setBackgroundResource(R.drawable.aurora_preview_record_video);
                 mCaptureBtn.setBackgroundResource(R.drawable.aurora_menuitem_send_pres);
-                mFullScreenBtn.setBackgroundResource(R.drawable.aurora_preview_recover_screen);
-                mFullScreenBtn.setVisibility(VISIBLE);
-                mCloseBtn.setVisibility(GONE);
+//                mFullScreenBtn.setBackgroundResource(R.drawable.aurora_preview_recover_screen);
+//                mFullScreenBtn.setVisibility(VISIBLE);
+//                mCloseBtn.setVisibility(GONE);
             }
 
         } else if (view.getId() == R.id.aurora_ib_camera_capture) {
@@ -624,7 +626,7 @@ public class ChatInputView extends LinearLayout
                             mCaptureBtn.setBackgroundResource(R.drawable.aurora_preview_record_video_stop);
                             mRecordVideoBtn.setVisibility(GONE);
                             mSwitchCameraBtn.setVisibility(GONE);
-                            mCloseBtn.setVisibility(VISIBLE);
+//                            mCloseBtn.setVisibility(VISIBLE);
                         }
                     }, 200);
                     mIsRecordingVideo = true;
@@ -887,8 +889,8 @@ public class ChatInputView extends LinearLayout
         attrs.flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
         activity.getWindow().setAttributes(attrs);
         activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-        mFullScreenBtn.setBackgroundResource(R.drawable.aurora_preview_recover_screen);
-        mFullScreenBtn.setVisibility(VISIBLE);
+//        mFullScreenBtn.setBackgroundResource(R.drawable.aurora_preview_recover_screen);
+//        mFullScreenBtn.setVisibility(VISIBLE);
         mChatInputContainer.setVisibility(GONE);
         mMenuItemContainer.setVisibility(GONE);
         int height = mHeight;
@@ -943,7 +945,7 @@ public class ChatInputView extends LinearLayout
                 mIsFullScreen = false;
                 mIsRecordingVideo = false;
                 mIsRecordVideoMode = false;
-                mCloseBtn.setVisibility(GONE);
+//                mCloseBtn.setVisibility(GONE);
                 mFullScreenBtn.setBackgroundResource(R.drawable.aurora_preview_full_screen);
                 mFullScreenBtn.setVisibility(VISIBLE);
                 mChatInputContainer.setVisibility(VISIBLE);

@@ -3,6 +3,7 @@ package cn.jiguang.imui.chatinput.utils;
 import android.content.Context;
 import android.text.Editable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,12 +14,16 @@ import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
+import java.util.Map;
 
 import cn.jiguang.imui.chatinput.R;
 import cn.jiguang.imui.chatinput.emoji.Constants;
 import cn.jiguang.imui.chatinput.emoji.DefEmoticons;
+import cn.jiguang.imui.chatinput.emoji.DefQQEmoticons;
 import cn.jiguang.imui.chatinput.emoji.EmojiBean;
 import cn.jiguang.imui.chatinput.emoji.EmojiFilter;
+import cn.jiguang.imui.chatinput.emoji.QQEmojiFilter;
 import cn.jiguang.imui.chatinput.emoji.listener.EmoticonClickListener;
 import cn.jiguang.imui.chatinput.emoji.listener.EmoticonDisplayListener;
 import cn.jiguang.imui.chatinput.emoji.data.EmoticonEntity;
@@ -36,6 +41,7 @@ public class SimpleCommonUtils {
 
     public static void initEmoticonsEditText(EmoticonsEditText etContent) {
         etContent.addEmoticonFilter(new EmojiFilter());
+        etContent.addEmoticonFilter(new QQEmojiFilter());
     }
 
     public static EmoticonClickListener getCommonEmoticonClickListener(final EditText editText) {
@@ -79,6 +85,8 @@ public class SimpleCommonUtils {
         PageSetAdapter pageSetAdapter = new PageSetAdapter();
 
         addEmojiPageSetEntity(pageSetAdapter, context, emoticonClickListener);
+
+        addQQEmojiPageSetEntity(pageSetAdapter, context, emoticonClickListener);
 
         return pageSetAdapter;
     }
@@ -128,6 +136,25 @@ public class SimpleCommonUtils {
                 .setIconUri(ImageBase.Scheme.DRAWABLE.toUri("icon_emoji"))
                 .build();
         pageSetAdapter.add(emojiPageSetEntity);
+    }
+
+    public static void addQQEmojiPageSetEntity(PageSetAdapter pageSetAdapter, Context context, final EmoticonClickListener emoticonClickListener) {
+        ArrayList<EmoticonEntity> qqEmojiArray = new ArrayList<>();
+        for (int i : DefQQEmoticons.SYS_EMOCATION_ORDER) {
+            EmoticonEntity entity = new EmoticonEntity("" + DefQQEmoticons.STATIC_SYS_EMOTCATION_RESOURCE[i], DefQQEmoticons.SYS_EMOTICON_SYMBOL[i]);
+            qqEmojiArray.add(entity);
+        }
+        EmoticonPageSetEntity qqEmojiPageSetEntity
+                = new EmoticonPageSetEntity.Builder()
+                .setLine(3)
+                .setRow(7)
+                .setEmoticonList(qqEmojiArray)
+                .setIPageViewInstantiateItem(getEmoticonPageViewInstantiateItem(EmoticonsAdapter.class,
+                        emoticonClickListener, getCommonEmoticonDisplayListener(emoticonClickListener, Constants.EMOTICON_CLICK_TEXT)))
+                .setShowDelBtn(EmoticonPageEntity.DelBtnStatus.LAST)
+                .setIconUri(ImageBase.Scheme.DRAWABLE.toUri("icon_qq_emoji"))
+                .build();
+        pageSetAdapter.add(qqEmojiPageSetEntity);
     }
 
 

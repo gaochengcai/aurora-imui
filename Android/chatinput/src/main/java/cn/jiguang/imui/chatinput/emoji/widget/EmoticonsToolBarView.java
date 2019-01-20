@@ -135,7 +135,8 @@ public class EmoticonsToolBarView extends RelativeLayout {
     public void addToolItemView(int rec, final PageSetEntity pageSetEntity, OnClickListener onClickListener) {
         View toolBtnView = getCommonItemToolBtn();
         initItemToolBtn(toolBtnView, rec, pageSetEntity, onClickListener);
-        ly_tool.addView(toolBtnView);
+        LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);
+        ly_tool.addView(toolBtnView, params);
         mToolBtnList.add(getToolBgBtn(toolBtnView));
     }
 

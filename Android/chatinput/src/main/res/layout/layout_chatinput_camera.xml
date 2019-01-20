@@ -20,7 +20,6 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/aurora_preview_close_camera"
-        android:visibility="gone"
         tools:visibility="visible" />
 
     <ImageButton
